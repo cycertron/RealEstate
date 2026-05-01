@@ -1,34 +1,67 @@
 import { motion } from "framer-motion";
+import { FaBell, FaCamera, FaHandshake, FaMapMarkedAlt, FaShieldAlt, FaSlidersH } from "react-icons/fa";
 
-const FEATURES = [
-  { icon: "🏠", title: "Property Listings Management",   desc: "Add, update, and manage your entire property portfolio with photos, specs, pricing, and status tracking.", span: 1 },
-  { icon: "📊", title: "Real-Time Analytics",            desc: "Live dashboards showing active listings, commission earned, monthly trends, and pipeline health.", span: 1 },
-  { icon: "📋", title: "Deal Pipeline CRM",              desc: "Drag-and-drop Kanban board tracks every deal from first lead to contract signing — never miss a follow-up.", span: 2 },
-  { icon: "👥", title: "Client Intelligence",            desc: "Buyer, Seller, Investor, and Tenant profiles with budget ranges, preferred areas, and deal history.", span: 1 },
-  { icon: "💰", title: "Commission Tracker",             desc: "Automatically calculate commissions per deal, track pending payouts, and export reports for accounting.", span: 1 },
-  { icon: "📱", title: "Mobile App Exposure",            desc: "Your listings appear in the Estatly mobile app, visible to thousands of active property seekers.", span: 2 },
+const features = [
+  {
+    Icon: FaShieldAlt,
+    title: "Verified listings",
+    desc: "Every property profile is reviewed for clear photos, current pricing, and essential ownership details.",
+  },
+  {
+    Icon: FaMapMarkedAlt,
+    title: "Neighborhood clarity",
+    desc: "Compare locations by commute, nearby essentials, lifestyle, and long-term value before you book a tour.",
+  },
+  {
+    Icon: FaCamera,
+    title: "Rich property media",
+    desc: "Explore photo galleries, floor details, amenities, and practical notes without digging through scattered messages.",
+  },
+  {
+    Icon: FaSlidersH,
+    title: "Smarter filters",
+    desc: "Search by budget, room count, property type, city, and purpose so you only see homes that fit.",
+  },
+  {
+    Icon: FaBell,
+    title: "Saved alerts",
+    desc: "Keep track of promising properties and get notified when matching homes or price updates appear.",
+  },
+  {
+    Icon: FaHandshake,
+    title: "Agent connection",
+    desc: "Move from discovery to viewing with trusted local agents who understand your shortlist.",
+  },
 ];
 
 const FeatureShowcase = () => (
   <section className="features-section">
-    <div className="section-label">PLATFORM FEATURES</div>
-    <motion.h2 className="section-title"
-      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }} transition={{ duration: 0.6 }}>
-      Everything You Need to Run Your Agency
+    <div className="section-kicker">Why Estatly</div>
+    <motion.h2
+      className="section-title"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.55 }}
+    >
+      A calmer way to choose your next property.
     </motion.h2>
-    <div className="bento-grid">
-      {FEATURES.map((f, i) => (
-        <motion.div key={f.title} className={`bento-card bento-span-${f.span}`}
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
-          whileHover={{ scale: 1.02, rotateX: 2, rotateY: -2 }}
-          style={{ transformStyle: 'preserve-3d' }}>
-          <div className="bento-icon">{f.icon}</div>
-          <h3 className="bento-title">{f.title}</h3>
-          <p className="bento-desc">{f.desc}</p>
-          <div className="bento-shimmer" />
-        </motion.div>
+    <div className="feature-grid">
+      {features.map(({ Icon, title, desc }, index) => (
+        <motion.article
+          key={title}
+          className="feature-card"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay: index * 0.06 }}
+        >
+          <span className="feature-icon">
+            <Icon />
+          </span>
+          <h3>{title}</h3>
+          <p>{desc}</p>
+        </motion.article>
       ))}
     </div>
   </section>

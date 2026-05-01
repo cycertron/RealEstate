@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"
+import { FaArrowLeft, FaGoogle } from "react-icons/fa";
 
 const Register = () => {
 
@@ -44,7 +45,7 @@ const Register = () => {
       }
 
       await axios.post(
-        `${import.meta.env.VITE_AUTH_API_BASE_URL}/register`,
+        `${import.meta.env.VITE_API_BASE_URL}/users/register`,
         rest
       );
 
@@ -57,45 +58,51 @@ const Register = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `${import.meta.env.VITE_AUTH_API_BASE_URL}/auth/google`;
+    window.location.href = `${import.meta.env.VITE_API_BASE_URL}/users/auth/google`;
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="auth-page">
+      <button className="auth-back" onClick={() => navigateto("/initialhome/herosection")}>
+        <FaArrowLeft /> Back to home
+      </button>
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+        className="auth-card">
+        <div className="auth-brand">
+          <span>Estatly</span>
+          <small>Create your buyer account</small>
+        </div>
         <motion.h2
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-2xl font-bold text-center mb-6">Create Account</motion.h2>
+          className="auth-title">Save properties and book tours faster.</motion.h2>
 
         {error && (
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-red-500 text-sm mt-2 text-center">
+            className="auth-error">
             {error}
           </motion.p>
         )}
 
-        <form className="space-y-4" onSubmit={registerUser}>
+        <form className="auth-form" onSubmit={registerUser}>
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <label className="block text-sm font-medium mb-1">Username</label>
+            <label>Username</label>
             <input
               type="text"
               name="Username"
               value={form.Username}
               placeholder="Enter username"
               onChange={handlechange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
             />
           </motion.div>
 
@@ -103,14 +110,13 @@ const Register = () => {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}>
-            <label className="block text-sm font-medium mb-1">Name</label>
+            <label>Name</label>
             <input
               name="Name"
               type="text"
               value={form.Name}
               placeholder="Enter full name"
               onChange={handlechange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
             />
           </motion.div>
 
@@ -118,14 +124,13 @@ const Register = () => {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label>Email</label>
             <input
               type="email"
               name="email"
               value={form.email}
               placeholder="Enter email"
               onChange={handlechange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
             />
           </motion.div>
 
@@ -133,14 +138,13 @@ const Register = () => {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}>
-            <label className="block text-sm font-medium mb-1">Password</label>
+            <label>Password</label>
             <input
               type="password"
               name="password"
               value={form.password}
               placeholder="Enter password"
               onChange={handlechange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
             />
           </motion.div>
 
@@ -148,14 +152,13 @@ const Register = () => {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1 }}>
-            <label className="block text-sm font-medium mb-1">Confirm Password</label>
+            <label>Confirm password</label>
             <input
               type="password"
               name="confirmPassword"
               value={form.confirmPassword}
               placeholder="Enter password"
               onChange={handlechange}
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
             />
           </motion.div>
 
@@ -164,9 +167,9 @@ const Register = () => {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
             type="submit"
-            className="w-full py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition cursor-pointer"
+            className="auth-submit"
           >
-            Register
+            Create account
           </motion.button>
         </form>
 
@@ -174,20 +177,15 @@ const Register = () => {
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
-          className="mt-4 text-center">
-          <p className="text-sm mb-2">Continue with</p>
+          className="auth-social">
+          <p>Continue with</p>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300 }}
             onClick={handleGoogleLogin}
-            className="w-full py-2 border rounded-lg hover:bg-gray-100 transition flex items-center justify-center gap-2 cursor-pointer"
           >
-            <img
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              alt="google"
-              className="w-5 h-5"
-            />
+            <FaGoogle />
             Google
           </motion.button>
         </motion.div>
@@ -196,14 +194,13 @@ const Register = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.35 }}
-          className="mt-6 text-center text-sm text-gray-600"
+          className="auth-switch"
         >
           Already have an account?{" "}
           <motion.span
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigateto("/login")}
-            className="font-semibold text-black cursor-pointer underline underline-offset-4"
           >
             Login
           </motion.span>

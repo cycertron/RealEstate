@@ -1,31 +1,33 @@
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#100D08] border-t border-[#c9a96e]/20 text-gray-200 pt-12 pb-6">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-start">
-
-        {/* Logo / Brand */}
-        <div className="text-center md:text-left">
-          <h2 className="text-3xl font-bold text-white mb-2">Estatly</h2>
-          <p className="text-gray-300 text-sm">
-            Connecting real estate agencies with buyers, sellers and investors. Manage your listings, close more deals, and grow your agency.
+    <footer className="site-footer">
+      <div className="footer-grid">
+        <div>
+          <h2>Estatly</h2>
+          <p>
+            A modern property search experience for buyers, renters, investors, and families looking for verified real estate.
           </p>
         </div>
-
-        {/* Social / Contact */}
-        <div className="text-center md:text-right">
-          <h3 className="font-semibold text-white mb-2">Follow Us</h3>
-          <div className="flex justify-center md:justify-end space-x-4 mb-4">
-            <FaFacebookF className="hover:text-amber-500 cursor-pointer transition transform hover:scale-110" />
-            <FaInstagram className="hover:text-amber-500 cursor-pointer transition transform hover:scale-110" />
-            <FaLinkedinIn className="hover:text-amber-500 cursor-pointer transition transform hover:scale-110" />
+        <div>
+          <h3>Explore</h3>
+          <Link to="/initialhome/aboutus">About</Link>
+          <Link to="/initialhome/services">Services</Link>
+          <Link to="/initialhome/contactus">Contact</Link>
+        </div>
+        <div>
+          <h3>Connect</h3>
+          <div className="footer-socials">
+            <FaFacebookF />
+            <FaInstagram />
+            <FaLinkedinIn />
           </div>
-          <p className="text-gray-400 text-sm">
-            &copy; 2026 Estatly. All rights reserved.
-          </p>
+          <p className="footer-note">Kathmandu, Nepal</p>
         </div>
       </div>
+      <div className="footer-bottom">© 2026 Estatly. All rights reserved.</div>
     </footer>
   );
 };

@@ -21,10 +21,6 @@ import Settings from "../Pages/Settings"
 const router=createBrowserRouter(
     createRoutesFromElements(
         <>
-        <Route element={<Publicroute/>}>
-        <Route path="/login"element={<Loginpage/>}/>
-        <Route path="/register" element={<Register/>}/>
-
         <Route path="/" element={<Navigate to="/initialhome/herosection" replace/>}/>
         <Route path="/initialhome"element={<InitialHome/>}>
         <Route path="herosection" element={<Herosection/>}/>
@@ -32,6 +28,10 @@ const router=createBrowserRouter(
         <Route path="services" element={<Services/>}/>
         <Route path="contactus" element={<ContactUs/>}/>
         </Route>
+
+        <Route element={<Publicroute/>}>
+        <Route path="/login"element={<Loginpage/>}/>
+        <Route path="/register" element={<Register/>}/>
         </Route>
 
           <Route element={<ProtectedRoute />}>
