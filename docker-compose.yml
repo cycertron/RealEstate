@@ -1,0 +1,102 @@
+services:
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    logging:
+      driver: "none"
+  auth:
+    build:
+      context: .
+      dockerfile: ./Realestae-Backend/Services/Auth/Dockerfile
+    container_name: auth_service
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./Realestae-Backend/Services/Auth/.env
+    volumes:
+      - ./Realestae-Backend/Services/Auth/src:/app/src
+      - /app/node_modules
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  admin:
+    build:
+      context: .
+      dockerfile: ./Realestae-Backend/Services/admin/Dockerfile
+    ports:
+      - "4001:4001"
+    env_file:
+      - ./Realestae-Backend/Services/admin/.env
+    volumes:
+      - ./Realestae-Backend/Services/admin/src:/app/src
+      - /app/node_modules
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  bookings:
+    build:
+      context: .
+      dockerfile: ./Realestae-Backend/Services/booking/Dockerfile
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./Realestae-Backend/Services/booking/.env
+    volumes:
+      - ./Realestae-Backend/Services/booking/src:/app/src
+      - /app/node_modules
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  realestate:
+    build:
+      context: .
+      dockerfile: ./Realestae-Backend/Services/RealEstate/Dockerfile
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./Realestae-Backend/Services/RealEstate/.env
+    volumes:
+      - ./Realestae-Backend/Services/RealEstate/src:/app/src
+      - /app/node_modules
+    depends_on:
+      - db
+    restart: unless-stopped
+
+
+  notifications:
+    build:
+      context: .
+      dockerfile: ./Realestae-Backend/Services/notifications/Dockerfile
+    ports:
+      - "6000:6000"
+    env_file:
+      - ./Realestae-Backend/Services/notifications/.env
+    volumes:
+      - ./Realestae-Backend/Services/notifications/src:/app/src
+      - /app/node_modules
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  db:
+    image: mongo:7
+    container_name: mongo_db
+    command: mongod --quiet --logpath /dev/null
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+    logging:
+      driver: "none"
+
+volumes:
+  mongo_data:
